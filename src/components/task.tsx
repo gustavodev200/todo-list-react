@@ -6,16 +6,18 @@ interface TaskProps {
   tasks: {
     id: string;
     date: Date;
+    isComplete: boolean;
     content: string;
   };
   onTaskDeleted: (id: string) => void;
+  onTaskChecked: (id: string) => void;
 }
 
-const Task = ({ tasks, onTaskDeleted }: TaskProps) => {
+const Task = ({ tasks, onTaskDeleted, onTaskChecked }: TaskProps) => {
   return (
     <div className="w-full mt-3">
       <ul>
-        <li className="w-full flex items-center justify-between text-2xl text-slate-200">
+        <li className="w-full flex items-center justify-between text-xl text-slate-200">
           <span className="flex">
             <div className="inline-flex items-center">
               <label
@@ -23,9 +25,12 @@ const Task = ({ tasks, onTaskDeleted }: TaskProps) => {
                 htmlFor="customStyle"
               >
                 <input
+                  readOnly
                   type="checkbox"
                   className="before:content[''] peer relative h-8 w-8 cursor-pointer appearance-none rounded-full border border-green-500 bg-transparent transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:bg-green-500 checked:before:bg-green-500 hover:scale-105 hover:before:opacity-0"
                   id="customStyle"
+                  onClick={() => onTaskChecked(tasks.id)}
+                  checked={tasks.isComplete}
                 />
                 <span className="absolute text-slate-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4  peer-checked:opacity-100">
                   <svg
@@ -52,7 +57,9 @@ const Task = ({ tasks, onTaskDeleted }: TaskProps) => {
                   addSuffix: true,
                 })}
               </span>
-              {tasks.content}
+              <span className={`${tasks.isComplete ? "line-through" : ""}`}>
+                {tasks.content}
+              </span>
             </span>
           </span>
           <button
