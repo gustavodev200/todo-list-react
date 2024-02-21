@@ -44,6 +44,19 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasksArray));
   }
 
+  // function onTaskEdit(id: string, content: string) {
+  //   const taskIndex = tasks.findIndex((task) => task.id === id);
+  //   if (taskIndex !== -1) {
+  //     const tasksCopy = [...tasks];
+  //     tasksCopy[taskIndex] = {
+  //       ...tasksCopy[taskIndex],
+  //       content: content,
+  //     };
+  //     setTasks(tasksCopy);
+  //     localStorage.setItem("tasks", JSON.stringify(tasksCopy));
+  //   }
+  // }
+
   function onTaskDeleted(id: string) {
     const tasksArray = tasks.filter((task) => {
       return task.id !== id;
@@ -84,7 +97,7 @@ function App() {
         <h1 className="mb-5 text-green-400 text-3xl font-bold">My Tasks</h1>
         <NewTask onTaskCreated={onTaskCreated} />
 
-        <div className="max-h-[50%] overflow-y-scroll py-2 pb-10 no-scrollbar px-2">
+        <div className="max-h-[60%] overflow-y-scroll py-2 pb-10 no-scrollbar px-2">
           {tasks.map((task) => {
             return (
               <Task

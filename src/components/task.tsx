@@ -56,6 +56,8 @@ const Task = ({ tasks, onTaskDeleted, onTaskChecked }: TaskProps) => {
                   locale: ptBR,
                   addSuffix: true,
                 })}
+
+                {/* {format(tasks.date, "hh:mm")} */}
               </span>
               <span
                 className={`${
@@ -66,12 +68,15 @@ const Task = ({ tasks, onTaskDeleted, onTaskChecked }: TaskProps) => {
               </span>
             </span>
           </span>
-          <button
-            className="text-red-400"
-            onClick={() => onTaskDeleted(tasks.id)}
-          >
-            <Trash2 />
-          </button>
+
+          <div className="flex items-center gap-6">
+            <button
+              className="text-red-400"
+              onClick={() => onTaskDeleted(tasks.id)}
+            >
+              <Trash2 />
+            </button>
+          </div>
         </li>
       </ul>
     </div>
