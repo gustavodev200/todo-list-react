@@ -57,7 +57,11 @@ const Task = ({ tasks, onTaskDeleted, onTaskChecked }: TaskProps) => {
                   addSuffix: true,
                 })}
               </span>
-              <span className={`${tasks.isComplete ? "line-through" : ""}`}>
+              <span
+                className={`${
+                  tasks.isComplete ? "line-through text-slate-500" : ""
+                }`}
+              >
                 {tasks.content}
               </span>
             </span>

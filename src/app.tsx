@@ -29,6 +29,16 @@ function App() {
 
     const tasksArray = [...tasks, newTask];
 
+    tasksArray.sort((a, b) => {
+      if (a.isComplete && !b.isComplete) {
+        return 1;
+      } else if (!a.isComplete && b.isComplete) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
     setTasks(tasksArray);
 
     localStorage.setItem("tasks", JSON.stringify(tasksArray));
@@ -53,7 +63,15 @@ function App() {
 
     tempTasks[taskIndex].isComplete = !tempTasks[taskIndex].isComplete;
 
-    // tempTasks.sort((a) => (a ? -1 : 1));
+    tempTasks.sort((a, b) => {
+      if (a.isComplete && !b.isComplete) {
+        return 1;
+      } else if (!a.isComplete && b.isComplete) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
 
     setTasks(tempTasks);
 
@@ -61,12 +79,12 @@ function App() {
   }
 
   return (
-    <main className="w-full h-dvh  bg-slate-900 flex items-center  flex-col">
-      <div className="w-1/2 mt-10">
+    <main className="w-full h-dvh overflow-hidden bg-slate-900 flex items-center  flex-col">
+      <div className="w-full p-2 md:p-0 md:w-1/2 mt-10">
         <h1 className="mb-5 text-green-400 text-3xl font-bold">My Tasks</h1>
         <NewTask onTaskCreated={onTaskCreated} />
 
-        <div className="max-h-[400px] overflow-y-scroll py-2 no-scrollbar px-2">
+        <div className="max-h-[50%] overflow-y-scroll py-2 pb-10 no-scrollbar px-2">
           {tasks.map((task) => {
             return (
               <Task
