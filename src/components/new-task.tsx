@@ -25,9 +25,7 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
     }
 
     onTaskCreated(content);
-
     setContent("");
-
     toast.success("Tarefa criada com sucesso!");
   }
 
@@ -47,7 +45,6 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
     speechRecognition = new SpeechRecognitionAPI();
 
     speechRecognition.lang = "pt-BR";
-    speechRecognition.continuous = true;
     speechRecognition.maxAlternatives = 1;
     speechRecognition.interimResults = true;
 
@@ -55,8 +52,6 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
       const transcription = Array.from(event.results).reduce((text, result) => {
         return text.concat(result[0].transcript);
       }, "");
-
-      console.log(transcription);
 
       setContent(transcription);
     };
@@ -85,6 +80,7 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
         onChange={handleTextInput}
         className="w-full h-full bg-transparent outline-none text-white text-lg"
         value={content}
+        max={100}
       />
 
       {!isRecording ? (
@@ -105,9 +101,8 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
           {/* <PauseCircle /> */}
         </button>
       )}
-
       <button
-        type="button"
+        type="submit"
         className="h-full rounded-md bg-slate-900 px-5 text-white font-bold"
         onClick={handleSaveTask}
       >
