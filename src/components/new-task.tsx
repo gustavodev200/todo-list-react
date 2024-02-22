@@ -45,6 +45,7 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
     speechRecognition = new SpeechRecognitionAPI();
 
     speechRecognition.lang = "pt-BR";
+    // speechRecognition.continuous = true;
     speechRecognition.maxAlternatives = 1;
     speechRecognition.interimResults = true;
 

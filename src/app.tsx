@@ -12,6 +12,8 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const taskOnStorage = localStorage.getItem("tasks");
 
+    // const nameUser = useAuthenticatedStore((state) => state.name);
+
     if (taskOnStorage) {
       return JSON.parse(taskOnStorage);
     }
@@ -94,7 +96,7 @@ function App() {
   return (
     <main className="w-full h-dvh overflow-hidden bg-slate-900 flex items-center  flex-col">
       <div className="w-full p-2 md:p-0 md:w-1/2 mt-10">
-        <h1 className="mb-5 text-green-400 text-3xl font-bold">My Tasks</h1>
+        <h1 className="mb-5 text-green-400 text-3xl font-bold">Welcome</h1>
         <NewTask onTaskCreated={onTaskCreated} />
 
         <div className="max-h-[60%] overflow-y-scroll py-2 pb-10 no-scrollbar px-2">
