@@ -8,11 +8,12 @@ type State = {
 
 type Actions = {
   updateName: (name: string) => void;
+  getName: () => string;
 };
 
 export const useAuthenticatedStore = create<State & Actions>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       name: "",
       isAuthenticated: false,
 
@@ -21,6 +22,7 @@ export const useAuthenticatedStore = create<State & Actions>()(
           name,
           isAuthenticated: !!name.trim(),
         })),
+      getName: () => get().name,
     }),
     {
       name: "@user",

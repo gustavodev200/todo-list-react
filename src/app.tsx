@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { NewTask, Task } from "./components";
-import { useAuthenticatedStore } from "./store/useAuthenticatedStore";
+import { Header, NewTask, Task } from "./components";
+
 import { useNavigate } from "react-router-dom";
+import { useAuthenticatedStore } from "./store/useAuthenticatedStore";
 
 interface Task {
   id: string;
@@ -107,7 +108,7 @@ function App() {
   return (
     <main className="w-full h-dvh overflow-hidden bg-slate-900 flex items-center  flex-col">
       <div className="w-full p-2 md:p-0 md:w-1/2 mt-10">
-        <h1 className="mb-5 text-green-400 text-3xl font-bold">Welcome</h1>
+        <Header />
         <NewTask onTaskCreated={onTaskCreated} />
 
         <div className="max-h-[60%] overflow-y-scroll py-2 pb-10 no-scrollbar px-2">
