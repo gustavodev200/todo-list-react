@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewTask, Task } from "./components";
+import { useAuthenticatedStore } from "./store/useAuthenticatedStore";
+import { useNavigate } from "react-router-dom";
 
 interface Task {
   id: string;
@@ -11,8 +13,6 @@ interface Task {
 function App() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const taskOnStorage = localStorage.getItem("tasks");
-
-    // const nameUser = useAuthenticatedStore((state) => state.name);
 
     if (taskOnStorage) {
       return JSON.parse(taskOnStorage);
@@ -92,6 +92,17 @@ function App() {
 
     localStorage.setItem("tasks", JSON.stringify(tempTasks));
   }
+
+  const isAuthenticated = useAuthenticatedStore(
+    (state) => state.isAuthenticated
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <main className="w-full h-dvh overflow-hidden bg-slate-900 flex items-center  flex-col">

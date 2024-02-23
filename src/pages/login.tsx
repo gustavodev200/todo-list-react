@@ -1,11 +1,16 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { useAuthenticatedStore } from "../store/useAuthenticatedStore";
 import { toast } from "sonner";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const nameInput = useAuthenticatedStore((state) => state.name);
   const updateName = useAuthenticatedStore((state) => state.updateName);
+  const isAuthenticated = useAuthenticatedStore(
+    (state) => state.isAuthenticated
+  );
+
+  const navigate = useNavigate();
 
   function getNameInput(event: ChangeEvent<HTMLInputElement>) {
     updateName(event.target.value);
@@ -18,10 +23,18 @@ const Login = () => {
       toast.error("Por favor, digite um nome.");
     }
 
-    redirect("/tasks");
+    navigate("/");
 
-    toast.success("Bem-vindo" + nameInput);
+    toast.success("Bem-vindo " + nameInput);
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="w-full h-screen bg-slate-900 flex flex-col items-center justify-center">
       <h1 className="text-green-400 text-3xl font-bold mb-10">

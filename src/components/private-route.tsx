@@ -1,5 +1,6 @@
-import React, { ComponentType, useState } from "react";
+import React, { ComponentType } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuthenticatedStore } from "../store/useAuthenticatedStore";
 
 interface PrivateRouteProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,7 +12,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   ...rest
 }) => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const isAuthenticated = useAuthenticatedStore(
+    (state) => state.isAuthenticated
+  );
   return isAuthenticated ? (
     <Component {...rest} />
   ) : (

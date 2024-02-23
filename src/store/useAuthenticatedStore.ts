@@ -1,29 +1,30 @@
-import create from "zustand";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 type State = {
   name: string;
+  isAuthenticated: boolean;
 };
 
-type Action = {
-  updateName: (name: State["name"]) => void;
+type Actions = {
+  updateName: (name: string) => void;
 };
 
-export const useAuthenticatedStore = create<State & Action>((set) => ({
-  name: "",
-  updateName: (name) => set(() => ({ name: name })),
-}));
+export const useAuthenticatedStore = create<State & Actions>()(
+  persist(
+    (set) => ({
+      name: "",
+      isAuthenticated: false,
 
-// persist(
-//     (set, get) => ({
-//       id: "",
-//       name: "",
-//       date: "",
-//       isComplete: false,
-//       content: "",
-
-//       updateName: () => set({ name: get() }),
-//     }),
-//     {
-//       name: "@userTask", // name of the item in the storage (must be unique)
-//       storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-//     }
+      updateName: (name) =>
+        set(() => ({
+          name,
+          isAuthenticated: !!name.trim(),
+        })),
+    }),
+    {
+      name: "@user",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);
