@@ -5,7 +5,7 @@ const Header = () => {
 
   return (
     <div className="flex w-full ">
-      <h1 className="flex w-full mb-5 text-green-400 text-4xl font-bold justify-between">
+      <h1 className="flex w-full mb-7 text-green-400 text-4xl font-bold justify-between">
         Welcome
         <span className="flex w-full text-white text-4xl font-bold ml-2">
           {getName}
