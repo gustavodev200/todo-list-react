@@ -26,7 +26,7 @@ export const useAuthenticatedStore = create<State & Actions>()(
     }),
     {
       name: "@user",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

@@ -1,14 +1,12 @@
 import { Mic } from "lucide-react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "sonner";
+import { useTaskStore } from "../store/useTaskStore";
 
-interface NewTaskProps {
-  onTaskCreated: (content: string) => void;
-}
-
-const NewTask = ({ onTaskCreated }: NewTaskProps) => {
+const NewTask = () => {
   const [content, setContent] = useState("");
   const [isRecording, setIsRecording] = useState(false);
+  const onCreateTask = useTaskStore((state) => state.onTaskCreated);
 
   let speechRecognition: SpeechRecognition | null = null;
 
@@ -24,7 +22,8 @@ const NewTask = ({ onTaskCreated }: NewTaskProps) => {
       return;
     }
 
-    onTaskCreated(content);
+    onCreateTask(content);
+
     setContent("");
     toast.success("Tarefa criada com sucesso!");
   }
