@@ -31,11 +31,14 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
           content,
         };
 
-        const tasks = get().tasks;
+        // Obtém o estado atual das tarefas
+        const currentTasks = get().tasks;
 
-        tasks.push(newTask);
+        // Cria um novo array de tarefas com a nova tarefa adicionada
+        const updatedTasks = [...currentTasks, newTask];
 
-        tasks.sort((a, b) => {
+        // Ordena as tarefas com base no status de conclusão
+        updatedTasks.sort((a, b) => {
           if (a.isComplete && !b.isComplete) {
             return 1;
           } else if (!a.isComplete && b.isComplete) {
@@ -45,7 +48,8 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
           }
         });
 
-        set({ tasks });
+        // Define o novo estado das tarefas
+        set({ tasks: updatedTasks });
       },
 
       onTaskChecked: (id) => {
@@ -68,6 +72,8 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
             return 0;
           }
         });
+
+        set({ tasks: tempTasks });
       },
 
       onTaskDeleted: (id) => {
