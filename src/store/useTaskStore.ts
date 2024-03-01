@@ -57,8 +57,10 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
 
         const tempTasks = [...tasks];
 
+        // Marca a tarefa como completa
         tempTasks[taskIndex].isComplete = !tempTasks[taskIndex].isComplete;
 
+        // Ordena as tarefas
         tempTasks.sort((a, b) => {
           if (a.isComplete && !b.isComplete) {
             return 1;
@@ -69,6 +71,7 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
           }
         });
 
+        // Atualiza o estado com as tarefas modificadas
         set({ tasks: tempTasks });
       },
 
