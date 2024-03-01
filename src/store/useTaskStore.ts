@@ -33,9 +33,9 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
 
         const tasks = get().tasks;
 
-        tasks.push(newTask);
+        const updatedTasks = [...tasks, newTask];
 
-        tasks.sort((a, b) => {
+        updatedTasks.sort((a, b) => {
           if (a.isComplete && !b.isComplete) {
             return 1;
           } else if (!a.isComplete && b.isComplete) {
@@ -45,14 +45,14 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
           }
         });
 
-        set({ tasks });
+        set({ tasks: updatedTasks });
       },
 
       onTaskChecked: (id) => {
         const tasks = get().tasks;
 
         const taskIndex = tasks.findIndex((task) => {
-          return task.id == id;
+          return task.id === id;
         });
 
         const tempTasks = [...tasks];
@@ -68,13 +68,15 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
             return 0;
           }
         });
+
+        set({ tasks: tempTasks });
       },
 
       onTaskDeleted: (id) => {
         const tasks = get().tasks;
 
         const taskIndex = tasks.findIndex((task) => {
-          return task.id == id;
+          return task.id === id;
         });
 
         const tempTasks = [...tasks];
