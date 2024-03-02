@@ -16,12 +16,14 @@ type ActionsTasks = {
   onTaskCreated: (content: string) => void;
   onTaskChecked: (id: string) => void;
   onTaskDeleted: (id: string) => void;
+  setTasks: (newTasks: Task[]) => void;
 };
 
 export const useTaskStore = create<StateTasks & ActionsTasks>()(
   persist(
     (set, get) => ({
       tasks: [],
+      setTasks: (newTasks: Task[]) => set({ tasks: newTasks }),
 
       onTaskCreated: (content) => {
         const newTask = {
@@ -71,7 +73,6 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
           }
         });
 
-        // Atualiza o estado com as tarefas modificadas
         set({ tasks: tempTasks });
       },
 
