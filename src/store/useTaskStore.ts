@@ -17,6 +17,7 @@ type ActionsTasks = {
   onTaskChecked: (id: string) => void;
   onTaskDeleted: (id: string) => void;
   setTasks: (newTasks: Task[]) => void;
+  onRemove: () => void;
 };
 
 export const useTaskStore = create<StateTasks & ActionsTasks>()(
@@ -24,6 +25,10 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
     (set, get) => ({
       tasks: [],
       setTasks: (newTasks: Task[]) => set({ tasks: newTasks }),
+
+      onRemove: () => {
+        set({ tasks: [] }); // Limpa as tarefas
+      },
 
       onTaskCreated: (content) => {
         const newTask = {
@@ -90,6 +95,7 @@ export const useTaskStore = create<StateTasks & ActionsTasks>()(
         set({ tasks: tempTasks });
       },
     }),
+
     {
       name: "@tasks",
       storage: createJSONStorage(() => localStorage),
