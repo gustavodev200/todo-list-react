@@ -17,7 +17,7 @@ function App() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <main className="w-full h-auto md:min-h-dvh bg-slate-900 flex items-center  flex-col">
+    <main className="w-full min-h-screen md:min-h-dvh bg-slate-900 flex items-center  flex-col">
       <div className="w-full p-2 md:p-0 md:w-1/2 mt-10">
         <Header />
         <NewTask />
