@@ -13,9 +13,9 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  function getNameInput(event: ChangeEvent<HTMLInputElement>) {
+  const getNameInput = (event: ChangeEvent<HTMLInputElement>) => {
     updateName(event.target.value);
-  }
+  };
 
   function onSaveNameForLogin(event: FormEvent) {
     event.preventDefault();
